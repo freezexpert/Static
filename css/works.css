@@ -1,0 +1,24 @@
+
+#dialog{
+/* 非IE瀏覽用設定，使其長寬都延展至100% */
+position:fixed;
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+margin:0px;
+background-color:#000000;
+z-index:0;
+text-align:center;
+opacity:0.3;
+}
+
+#msg{   /*訊息區塊，背景設為白色，使用絕對定位*/
+top:0px;
+left:0px;
+width:100%;
+height:100%;
+/* display:none; */
+text-align:center;
+z-index: 0;
+}

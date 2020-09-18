@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://getbootstrap.com/docs/4.0/examples/checkout/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+
+    <title>Upload Work</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="/css/form-validation.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="/css/album.css" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="/js/config.js"></script>
+
+    <script defer src="/js/upload.js"></script>
+  </head>
+
+  <body class="bg-light">
+    <header>
+        <div class="bg-dark collapse" id="navbarHeader">
+            <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4 class="text-white">Introduction</h4>
+                    <p class="text-muted">If you are a professor, you can find a works and give it a rating.<br>If you are a student, you can upload your work or look your work's rating.</p>
+                    <h4 class="text-white">Your Account</h4>
+                    <p id="account" class="text-muted">Loading...</p>
+                    <h4 class="text-white">Your Role</h4>
+                    <p id="role" class="text-muted">Loading...</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                <h4 class="text-white">Navigate</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="/works" class="text-white">Works</a></li>
+                        <li><a href="/submissions" class="text-white">My Works</a></li>
+                        <li><a href="/upload" class="text-white">Submit Work</a></li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark box-shadow">
+            <div class="container d-flex justify-content-between">
+            <a href="/works" class="navbar-brand d-flex align-items-center">
+                 <strong>Hsinchu-Diploma-Mill</strong>
+            </a>
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+      <div class="py-5 text-center">
+        <h2>Upload Work</h2>
+        <p class="lead">You can upload what you want to upload.</p>
+    </div>
+    <div class="container-fluid px-5">
+
+        <div class="col-md-12 order-md-1">
+            <form class="needs-validation" action="javascript:uploadWork();">
+                <div class="mb-3">
+                    <label for="name">Title</label>
+                    <div class="input-group">
+                        <input type="text" required minlength="1" class="form-control " id="name" placeholder="Work title">
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" required minlength="1" rows="5" placeholder="Descriptions"></textarea>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <label for="type">Type</label>
+                        <select class="custom-select d-block w-100" id="type" >
+                        </select>
+                    </div>
+                </div>
+                <hr class="mb-4">
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" accept="image/png, image/jpeg, image/jpg" class="form-control-file" id="image">
+                    </div>
+                <hr class="mb-4">
+                
+                
+                
+                <button class="btn btn-primary btn-lg btn-block" type="submit" id="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+</body></html>
