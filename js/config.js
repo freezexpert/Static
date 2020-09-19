@@ -1,3 +1,3 @@
 
-contractAddress = "0x7400edf1eCAf6E3C78D7131Ad4B41C7Ac9F777a6";
+contractAddress = "0x40E782A0720FF09c279EB4135f34dA495D30cc70";
 contractABI = "/js/abi.json";
