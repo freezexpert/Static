@@ -68,6 +68,7 @@ $(document).ready(async function() {
                     const template = document.importNode(document.getElementById("workTemplate").content, true);
                     $("#title", template).text(w["name"]);
                     $("#desc", template).text(w["url"]);
+                    $("#image", template).attr("src", w["sha1"]);
                     $(".rateBtn", template).attr("work-id", ids[i]);
                     if (role == 'rater') {
                         $(".onlyRater", template).removeAttr("hidden");
@@ -120,6 +121,7 @@ function rate(id) {
         confirmButtonText: 'Rate!',
         showCancelButton: true,
         allowOutsideClick: () => !Swal.isLoading(),
+        allowEscapeKey: () => !Swal.isLoading(),
         preConfirm: (value) => {
             $(Swal.getInput()).attr("disabled", true)
             return contract.methods.rateWork(id, value).send({
