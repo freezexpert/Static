@@ -4,13 +4,14 @@ $(document).ready(async function() {
         // MetaMask is connected
         await checkNetwork();
         w3 = new Web3(window.ethereum);
+        w3.eth.defaultAccount = acc;
         logged_in = true;
 
-        w3.eth.getBalance(acc, web3.eth.defaultBlock, (e, bal) => {
-            $("#account").text(`${acc} with ${w3.utils.fromWei(bal, "ether")} ETH`);
+        w3.eth.getBalance(acc, w3.eth.defaultBlock, (e, bal) => {
+            $("#account").text(`${w3.utils.toChecksumAddress(acc)} with ${w3.utils.fromWei(bal, "ether")} ETH`);
         })
     } else {
-        await requestAccount()
+        await requestAccount();
         location.reload();
     }
 

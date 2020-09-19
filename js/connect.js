@@ -5,7 +5,7 @@
 async function requestAccount() {
     if (!window.ethereum) {
         const isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
-        Swal.fire({
+        await Swal.fire({
             icon: 'error',
             title: 'MetaMask not installed!',
             html: `You can install it <a href="${isFirefox?
