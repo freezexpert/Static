@@ -1,7 +1,5 @@
 
-if (!window.ethereum) {
-    location.href = "/works";
-  } else {
+if (window.ethereum) {
     (async () => {
       if (await getAccount()) {
         location.href = "/works";
