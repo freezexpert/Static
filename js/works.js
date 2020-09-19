@@ -21,10 +21,50 @@ $(document).ready(async function() {
         $(".guest").removeAttr("hidden");
     }
 
-    
     contract = new w3.eth.Contract(await $.get(contractABI), contractAddress);
     // console.log(contract);
     
+    res = await Promise.allSettled([
+        getRole(),
+        getWorksData(),
+        getRated()
+    ]);
+
+    role = res[0].value;
+    works = res[1].value;
+    rated = res[2].value;
+
+    const container = $("#worksContainer");
+
+    if (works.length == 0) {
+        $("#loadingTxt").text("No works yet :P");
+        return;
+    }
+
+    works.forEach((w) => {
+        const template = document.importNode(document.getElementById("workTemplate").content, true);
+        $("#title", template).text(w["name"]);
+        $("#desc", template).text(w["url"]);
+        $("#image", template).attr("src", w["sha1"]);
+        $(".rateBtn", template).attr("work-id", w["id"]);
+        if (role == 'rater') {
+            $(".onlyRater", template).removeAttr("hidden");
+        }
+        container.append(template);
+    })
+    $("#loading").hide();
+
+    // Disable rated buttons
+    if (role == 'rater') {
+        rated.forEach((id) => {
+            $(`[work-id='${id}'`).text("Rated").attr("disabled", true);
+        })
+    }
+    
+})
+
+async function getRole() {
+    let role;
     if (logged_in) {
         await contract.methods.getRole().call().then((res) => {
             if (res == 2) {
@@ -46,50 +86,41 @@ $(document).ready(async function() {
         $("#role").text("Guest");
         role = "guest";
     }
+    return role;
+}
 
-        // Get works
-    const container = $("#worksContainer");
-    contract.methods.workCount().call().then((count) => {
-        if (count == 0) {
-            $("#loadingTxt").text("No works yet :P");
-            return;
-        }
+async function getWorksData() {
+    const works = [];
 
-        const ids = [];
-        for (let i = 0; i < count; i++) {
-            ids.push(i);
-        }
-        Promise.allSettled(
-            ids.map(i => contract.methods.works(i).call())
-        ).then(async (res) => {
-            res.forEach((promise, i) => {
-                const w = promise.value;
-                if (w.exists) {
-                    const template = document.importNode(document.getElementById("workTemplate").content, true);
-                    $("#title", template).text(w["name"]);
-                    $("#desc", template).text(w["url"]);
-                    $("#image", template).attr("src", w["sha1"]);
-                    $(".rateBtn", template).attr("work-id", ids[i]);
-                    if (role == 'rater') {
-                        $(".onlyRater", template).removeAttr("hidden");
+    const count = await contract.methods.workCount().call();
+
+    const promises = []
+    for (let i = 0; i < count; i++) {
+        promises.push(
+            (async () => {
+                let work;
+                await contract.methods.works(i).call().then(async (w) => {
+                    if (w.exists) {
+                        ratings = await contract.methods.getRatings(i).call();
+                        w["ratings"] = ratings;
+                        w["id"] = i;
+                        work = w;
                     }
-                    container.append(template);
-                }
-            })
-            $("#loading").hide();
-
-            if (role == 'rater') {
-                // Disable rated buttons
-                const rated = await contract.methods.ratedWorks(acc).call();
-                rated.forEach((id) => {
-                    $(`[work-id='${id}'`).text("Rated").attr("disabled", true);
                 })
-            }
-            
-        })
+                return work;
+            })()
+        )
+    }
+    const res = await Promise.allSettled(promises);
+    res.forEach((promise) => {
+        works.push(promise.value);
     })
-    
-})
+    return works;
+}
+
+async function getRated() {
+    return await contract.methods.ratedWorks(acc).call();
+}
 
 $(document).on("click", ({ target }) => {
     if ($(target).hasClass("rateBtn")) {

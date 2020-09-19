@@ -1,5 +1,6 @@
 
 $(document).ready(async function() {
+
     if (await getAccount()){
         // MetaMask is connected
         await checkNetwork();
@@ -11,8 +12,11 @@ $(document).ready(async function() {
             $("#account").text(`${w3.utils.toChecksumAddress(acc)} with ${w3.utils.fromWei(bal, "ether")} ETH`);
         })
     } else {
-        await requestAccount();
-        location.reload();
+        if (await requestAccount()) {
+            location.reload();
+        } else {
+            history.back();
+        }
     }
 
     // Connect to contract
@@ -43,7 +47,9 @@ $(document).ready(async function() {
         res.forEach((category, i) => {
             type.append(`<option value="${i}">${category}</option>`)
         })
+        type.multiselect();
     })
+    
         
 })
 
@@ -53,8 +59,13 @@ function uploadWork() {
     // Get type
     const title = $("#name").val();
     const desc = $("#description").val();
-    const type = 1 << $("#type").val();
     const image = $("#image")[0].files[0];
+
+    let type = 0;
+    $('#type option:selected').each((id) => {
+        type |= 1 << id;
+    })
+
 
     // Upload image
     // WARNING: Callback hell ahead!!
