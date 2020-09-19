@@ -68,7 +68,7 @@ $(document).ready(async function() {
                     $("#title", template).text(w["name"]);
                     $("#desc", template).text(w["url"]);
                     $(".rateBtn", template).attr("work-id", ids[i]);
-                    if (is_rater) {
+                    if (role == 'rater') {
                         $(".onlyRater", template).removeAttr("hidden");
                     }
                     container.append(template);
@@ -76,7 +76,7 @@ $(document).ready(async function() {
             })
             $("#loading").hide();
 
-            if (is_rater) {
+            if (role == 'rater') {
                 // Disable rated buttons
                 const rated = await contract.methods.ratedWorks(acc).call();
                 rated.forEach((id) => {
