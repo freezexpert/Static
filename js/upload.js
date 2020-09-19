@@ -10,14 +10,9 @@ $(document).ready(async function() {
             $("#account").text(`${acc} with ${w3.utils.fromWei(bal, "ether")} ETH`);
         })
     } else {
-        if (await requestAccount()) {
-            location.reload();
-        }
+        await requestAccount()
+        location.reload();
     }
-
-    w3.eth.getBalance(acc, web3.eth.defaultBlock, (e, bal) => {
-        $("#account").text(`${acc} with ${w3.utils.fromWei(bal, "ether")} ETH`);
-    })
 
     // Connect to contract
     contract = new w3.eth.Contract(await $.get(contractABI), contractAddress);
