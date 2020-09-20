@@ -78,7 +78,7 @@
                 <template id="workTemplate">
                     <div class="col-md-4">
                         <div class="card mb-4 box-shadow">
-                            <img class="card-img-top" id="image" style="height: 225px; width: 100%; display: block;" src="" data-holder-rendered="true">
+                            <img class="card-img-top" id="image" style="height: 225px; width: 100%; display: block; object-fit: cover;" src="" data-holder-rendered="true">
                             <div class="card-body">
                                 <h5 class="card-title" id="title"></h5>
                                 <p class="card-text" id="desc"></p>
@@ -89,7 +89,7 @@
                                     <div class="btn-group">
                                        <button type="button" class="btn btn-sm btn-outline-secondary onlyRater rateBtn" hidden="true">Judge</button>
                                     </div>
-                                    <h3><span class="badge badge-light" id="rating"></span></h3>
+                                    <h3><span class="badge badge-light ratingBadge" id="rating"></span></h3>
                                 </div>
                             </div>
                         </div>
@@ -114,8 +114,28 @@
                 </form>
             </div>
         </div>
-          
-            
-
+        
+        
+        <!-- Rating Modal -->
+        <div class="modal fade" id="rating-modal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Rating Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" id="ratings-body">
+                        <h4>Average Rating</h4>
+                        <h3 id="rating"></h3>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </body>
 </html>

@@ -62,7 +62,12 @@ $(document).ready(async function() {
         $(".rateBtn", template).attr("work-id", w["id"]);
 
         const rate_count = w["ratings"][0].length;
-        $("#rating", template).text(rate_count? w["rating"]: ":(").append(`<br><h6 class="text-muted">${rate_count? rate_count: "No"} Rating${rate_count == 1? "": "s"}</h6>`)
+        $("#rating", template)
+            .text(rate_count? w["rating"]: ":(")
+            .append(`<br><h6 class="text-muted ratingBadge">${rate_count? rate_count: "No"} Rating${rate_count == 1? "": "s"}</h6>`)
+            .attr("work-id", w["id"])
+            .attr("style", rate_count? "cursor: pointer;": undefined);
+            
         
         const types_container = $("#types", template);
         for (let i = 0; i < categories.length; i++) {
@@ -81,7 +86,7 @@ $(document).ready(async function() {
     // Disable rated buttons
     if (role == 'rater') {
         rated.forEach((id) => {
-            $(`[work-id='${id}'`).text("Rated").attr("disabled", true);
+            $(`.rateBtn[work-id='${id}']`).text("Rated").attr("disabled", true);
         })
     }
     
@@ -153,8 +158,14 @@ async function getCategories() {
 
 $(document).on("click", ({ target }) => {
     if ($(target).hasClass("rateBtn")) {
-        const id = $(target).attr("work-id")
+        const id = $(target).attr("work-id");
         rate(id);
+    } else if ($(target).hasClass("ratingBadge")) {
+        const badge = $(target).closest("span");
+        const id = badge.attr("work-id");
+        if (badge.attr("style")) {
+            showRatingDetails(id);
+        }
     }
 })
 
@@ -227,3 +238,24 @@ $("#connect").on("click", async (e) => {
         location.reload();
     }
 })
+
+
+function showRatingDetails(id) {
+    const modal = $("#rating-modal");
+    const body = $("#ratings-body", modal);
+    body.empty();
+    works[id].ratings[0].forEach((score, i) => {
+        body.append(
+            `<h5>${score}</h5>
+            <p class="text-muted">Rater: ${works[id].ratings[1][i]}</p>
+            <hr>`
+        )
+    })
+    body.append(
+        `<div style="width: 100%;">
+            <h4 style="float: left;">Average Rating</h4>
+            <h1 style="float: right;">${works[id].rating}</h1>
+        </div>`
+    )
+    modal.modal();
+}
