@@ -1,4 +1,15 @@
 
+const colors = [
+    "primary",
+    "secondary",
+    "success",
+    "danger",
+    "warning",
+    "info",
+    "light",
+    "dark",
+]
+
 $(document).ready(async function() {
     w3 = new Web3(window.ethereum);
 
@@ -27,12 +38,14 @@ $(document).ready(async function() {
     res = await Promise.allSettled([
         getRole(),
         getWorksData(),
-        getRated()
+        getRated(),
+        getCategories()
     ]);
 
     role = res[0].value;
     works = res[1].value;
     rated = res[2].value;
+    categories = res[3].value;
 
     const container = $("#worksContainer");
 
@@ -47,6 +60,15 @@ $(document).ready(async function() {
         $("#desc", template).text(w["url"]);
         $("#image", template).attr("src", w["sha1"]);
         $(".rateBtn", template).attr("work-id", w["id"]);
+        $("#rating", template).text(w["rating"]);
+        
+        const types_container = $("#types", template);
+        for (let i = 0; i < categories.length; i++) {
+            if (w["categories"] & (1 << i)) {
+                types_container.append(`<span class="badge badge-pill badge-${colors[i % colors.length]}">${categories[i]}</span> `)
+            }
+        }
+
         if (role == 'rater') {
             $(".onlyRater", template).removeAttr("hidden");
         }
@@ -103,6 +125,7 @@ async function getWorksData() {
                     if (w.exists) {
                         ratings = await contract.methods.getRatings(i).call();
                         w["ratings"] = ratings;
+                        w["rating"] = ratings[0].length? (ratings[0].reduce((a, b) => parseInt(a) + parseInt(b))) / ratings[0].length : -1;
                         w["id"] = i;
                         work = w;
                     }
@@ -113,13 +136,17 @@ async function getWorksData() {
     }
     const res = await Promise.allSettled(promises);
     res.forEach((promise) => {
-        works.push(promise.value);
+        works[promise.value.id] = promise.value;
     })
     return works;
 }
 
 async function getRated() {
     return await contract.methods.ratedWorks(acc).call();
+}
+
+async function getCategories() {
+    return await contract.methods.getCategories().call();
 }
 
 $(document).on("click", ({ target }) => {
