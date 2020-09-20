@@ -60,7 +60,9 @@ $(document).ready(async function() {
         $("#desc", template).text(w["url"]);
         $("#image", template).attr("src", w["sha1"]);
         $(".rateBtn", template).attr("work-id", w["id"]);
-        $("#rating", template).text(w["rating"]);
+
+        const rate_count = w["ratings"][0].length;
+        $("#rating", template).text(rate_count? w["rating"]: ":(").append(`<br><h6 class="text-muted">${rate_count? rate_count: "No"} Rating${rate_count == 1? "": "s"}</h6>`)
         
         const types_container = $("#types", template);
         for (let i = 0; i < categories.length; i++) {
