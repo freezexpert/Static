@@ -18,6 +18,8 @@
         <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
         <script src="/js/config.js"></script>
         <script src="/js/connect.js"></script>
 
@@ -66,17 +68,25 @@
 
         <main role="main">
 
+        
+
 
         <div class="album py-5 bg-light">
+            <div class="d-flex justify-content-center h-100">
+                <div class="searchbar">
+                    <input class="search_input" type="text" name="" id="searchInput" placeholder="Search...">
+                    <a class="search_icon"><i class="fa fa-search"></i></a>
+                </div>
+            </div>
             <div class="container">
-
+            <br>
             <div class="row" id="worksContainer">
                 <div class="col-md" id="loading">
                     <h3 id="loadingTxt">Loading...</h3>
                 </div>
 
                 <template id="workTemplate">
-                    <div class="col-md-4">
+                    <div class="col-md-4 work">
                         <div class="card mb-4 box-shadow">
                             <img class="card-img-top" id="image" style="height: 225px; width: 100%; display: block; object-fit: cover;" src="" data-holder-rendered="true">
                             <div class="card-body">

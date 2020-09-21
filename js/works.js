@@ -47,14 +47,30 @@ $(document).ready(async function() {
     rated = res[2].value;
     categories = res[3].value;
 
-    const container = $("#worksContainer");
+    updateList();
+})
+
+
+// Due to current contract, url is desc, sha1 is image url
+function updateList(search) {
+    search = search.toLowerCase();
+    const my = window.location.hash.split("#")[1] == "my";
 
     if (works.length == 0) {
         $("#loadingTxt").text("No works yet :P");
+        $("#loading").show();
         return;
     }
 
+    const container = $("#worksContainer");
+    container.find(".work").remove();
+
+    let hasResult = false;
     works.forEach((w) => {
+        if (my && works[0]["submitter"].toLowerCase() != acc)
+            return;
+        if (search && !(w["name"].toLowerCase().includes(search) || w["url"].toLowerCase().includes(search)))
+            return;
         const template = document.importNode(document.getElementById("workTemplate").content, true);
         $("#title", template).text(w["name"]);
         $("#desc", template).text(w["url"]);
@@ -80,17 +96,22 @@ $(document).ready(async function() {
             $(".onlyRater", template).removeAttr("hidden");
         }
         container.append(template);
+        hasResult = true;
     })
-    $("#loading").hide();
 
-    // Disable rated buttons
-    if (role == 'rater') {
-        rated.forEach((id) => {
-            $(`.rateBtn[work-id='${id}']`).text("Rated").attr("disabled", true);
-        })
-    }
-    
-})
+    if (!hasResult) {
+        $("#loadingTxt").text("No results :(");
+        $("#loading").show();
+    } else {
+        $("#loading").hide();
+        // Disable rated buttons
+        if (role == 'rater') {
+            rated.forEach((id) => {
+                $(`.rateBtn[work-id='${id}']`).text("Rated").attr("disabled", true);
+            })
+        }
+    }  
+}
 
 async function getRole() {
     let role;
@@ -259,3 +280,7 @@ function showRatingDetails(id) {
     )
     modal.modal();
 }
+
+$("#searchInput").on("input", ({ target }) => {
+    updateList($(target).val());
+})
