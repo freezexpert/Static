@@ -53,7 +53,6 @@ $(document).ready(async function() {
 
 // Due to current contract, url is desc, sha1 is image url
 function updateList(search) {
-    search = search.toLowerCase();
     const my = window.location.hash.split("#")[1] == "my";
 
     if (works.length == 0) {
@@ -69,7 +68,7 @@ function updateList(search) {
     works.forEach((w) => {
         if (my && works[0]["submitter"].toLowerCase() != acc)
             return;
-        if (search && !(w["name"].toLowerCase().includes(search) || w["url"].toLowerCase().includes(search)))
+        if (search && !(w["name"].toLowerCase().includes(search.toLowerCase()) || w["url"].toLowerCase().includes(search.toLowerCase())))
             return;
         const template = document.importNode(document.getElementById("workTemplate").content, true);
         $("#title", template).text(w["name"]);
