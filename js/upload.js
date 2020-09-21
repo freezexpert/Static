@@ -59,6 +59,7 @@ function uploadWork() {
     // Get type
     const title = $("#name").val();
     const desc = $("#description").val();
+    const location = $("#location").val();
     const image = $("#image")[0].files[0];
 
     let type = 0;
@@ -100,7 +101,7 @@ function uploadWork() {
                     allowEscapeKey: () => !Swal.isLoading(),
                     preConfirm: async (value) => {
                         // Confirmed, Start transaction
-                        return contract.methods.uploadWork(title, desc, img_link, type).send({
+                        return contract.methods.uploadWork(title, desc, img_link, location, type).send({
                             from: acc
                         })
                         .once('transactionHash', (hash) => {

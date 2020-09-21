@@ -11,6 +11,8 @@ const colors = [
 ]
 
 $(document).ready(async function() {
+    $("#searchInput").val("");
+
     w3 = new Web3(window.ethereum);
 
     if (await getAccount()){
@@ -51,7 +53,6 @@ $(document).ready(async function() {
 })
 
 
-// Due to current contract, url is desc, sha1 is image url
 function updateList(search) {
     const my = window.location.hash.split("#")[1] == "my";
 
@@ -68,12 +69,13 @@ function updateList(search) {
     works.forEach((w) => {
         if (my && works[0]["submitter"].toLowerCase() != acc)
             return;
-        if (search && !(w["name"].toLowerCase().includes(search.toLowerCase()) || w["url"].toLowerCase().includes(search.toLowerCase())))
+        if (search && !(w["title"].toLowerCase().includes(search.toLowerCase()) || w["desc"].toLowerCase().includes(search.toLowerCase()) || w["location"].toLowerCase().includes(search.toLowerCase())))
             return;
         const template = document.importNode(document.getElementById("workTemplate").content, true);
-        $("#title", template).text(w["name"]);
-        $("#desc", template).text(w["url"]);
-        $("#image", template).attr("src", w["sha1"]);
+        $("#title", template).text(w["title"]);
+        $("#desc", template).text(w["desc"]);
+        $("#location", template).text(w["location"]);
+        $("#image", template).attr("src", w["image_url"]);
         $(".rateBtn", template).attr("work-id", w["id"]);
 
         const rate_count = w["ratings"][0].length;
@@ -282,4 +284,8 @@ function showRatingDetails(id) {
 
 $("#searchInput").on("input", ({ target }) => {
     updateList($(target).val());
+})
+
+$(window).on("hashchange", () => {
+    location.reload();
 })

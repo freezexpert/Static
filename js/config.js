@@ -1,5 +1,5 @@
 
-contractAddress = "0x40E782A0720FF09c279EB4135f34dA495D30cc70";
+contractAddress = "0x75aEC234a8A018BbEd86fC5b641148A61C38d6bF";
 contractABI = "/js/abi.json";
 
 infuraAPI = "31846ed5f60c42a2b438d2def2c34ab9";

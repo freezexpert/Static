@@ -1,10 +1,5 @@
 [
 	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -69,25 +64,6 @@
 		"name": "addRaterPoints",
 		"outputs": [],
 		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "category_name",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -168,6 +144,132 @@
 		"name": "enableRater",
 		"outputs": [],
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "work_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "rating",
+				"type": "uint256"
+			}
+		],
+		"name": "rateWork",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "removeAdmin",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "removeRater",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "addr",
+				"type": "address"
+			}
+		],
+		"name": "revokeRater",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_desc",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_img_url",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_location",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_categories",
+				"type": "uint256"
+			}
+		],
+		"name": "uploadWork",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "category_name",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -276,30 +378,6 @@
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "work_id",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "rating",
-				"type": "uint256"
-			}
-		],
-		"name": "rateWork",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "address",
 				"name": "addr",
 				"type": "address"
@@ -311,25 +389,6 @@
 				"internalType": "uint256[]",
 				"name": "",
 				"type": "uint256[]"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "addr",
-				"type": "address"
-			}
-		],
-		"name": "raterValid",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -382,35 +441,15 @@
 				"type": "address"
 			}
 		],
-		"name": "removeAdmin",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+		"name": "raterValid",
+		"outputs": [
 			{
-				"internalType": "address",
-				"name": "addr",
-				"type": "address"
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
-		"name": "removeRater",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "addr",
-				"type": "address"
-			}
-		],
-		"name": "revokeRater",
-		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -430,40 +469,6 @@
 			}
 		],
 		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_name",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_url",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_sha1",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_categories",
-				"type": "uint256"
-			}
-		],
-		"name": "uploadWork",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -510,7 +515,7 @@
 		"outputs": [
 			{
 				"internalType": "string",
-				"name": "name",
+				"name": "title",
 				"type": "string"
 			},
 			{
@@ -525,12 +530,17 @@
 			},
 			{
 				"internalType": "string",
-				"name": "url",
+				"name": "desc",
 				"type": "string"
 			},
 			{
 				"internalType": "string",
-				"name": "sha1",
+				"name": "img_url",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "location",
 				"type": "string"
 			},
 			{
