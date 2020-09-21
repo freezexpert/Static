@@ -167,6 +167,7 @@ async function getWorksData() {
     res.forEach((promise) => {
         works[promise.value.id] = promise.value;
     })
+    works[4]["desc"] = works[4]["desc"].split("https")[0];
     return works;
 }
 
