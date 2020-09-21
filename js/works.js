@@ -75,7 +75,7 @@ function updateList(search) {
         $("#title", template).text(w["title"]);
         $("#desc", template).text(w["desc"]);
         $("#location", template).text(w["location"]);
-        $("#image", template).attr("src", w["image_url"]);
+        $("#image", template).attr("src", w["img_url"]);
         $(".rateBtn", template).attr("work-id", w["id"]);
 
         const rate_count = w["ratings"][0].length;
