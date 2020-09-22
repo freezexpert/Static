@@ -63,8 +63,8 @@ function uploadWork() {
     const image = $("#image")[0].files[0];
 
     let type = 0;
-    $('#type option:selected').each((id) => {
-        type |= 1 << id;
+    $('#type option:selected').each((i, e) => {
+        type |= 1 << e.value;
     })
 
 
