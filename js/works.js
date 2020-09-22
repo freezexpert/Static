@@ -67,7 +67,7 @@ function updateList(search) {
 
     let hasResult = false;
     works.forEach((w) => {
-        if (my && works[0]["submitter"].toLowerCase() != acc)
+        if (my && w["submitter"].toLowerCase() != acc)
             return;
         if (search && !(w["title"].toLowerCase().includes(search.toLowerCase()) || w["desc"].toLowerCase().includes(search.toLowerCase()) || w["location"].toLowerCase().includes(search.toLowerCase())))
             return;
