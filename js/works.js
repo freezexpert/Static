@@ -156,6 +156,18 @@ async function getWorksData() {
                         w["ratings"] = ratings;
                         w["rating"] = ratings[0].length? (ratings[0].reduce((a, b) => parseInt(a) + parseInt(b))) / ratings[0].length : -1;
                         w["id"] = i;
+//
+if (i <= 7) {
+    let category = 0;
+    if (w["categories"] & 1) {
+        category |= 2;
+    }
+    if (w["categories"] & 2) {
+        category |= 16;
+    }
+    w["categories"] = category;
+}
+//
                         work = w;
                     }
                 })
@@ -167,7 +179,9 @@ async function getWorksData() {
     res.forEach((promise) => {
         works[promise.value.id] = promise.value;
     })
-    works[4]["desc"] = works[4]["desc"].split("https")[0];
+//
+works[4]["desc"] = works[4]["desc"].split("https")[0];
+//
     return works;
 }
 
