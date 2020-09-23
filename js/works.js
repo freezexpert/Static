@@ -304,3 +304,13 @@ $("#searchInput").on("input", ({ target }) => {
 $(window).on("hashchange", () => {
     location.reload();
 })
+
+function exportWorks(){
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(works));
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", "works.json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
