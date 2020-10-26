@@ -11,3 +11,4 @@ If you want to judge some work, you need to contact with the admin to join profe
 
 - LEARN REACT!!!!
 - Design new rule to attract more professors
+- Cross-Origin Request Blocked in local browser
